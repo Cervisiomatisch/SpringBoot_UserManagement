@@ -1,6 +1,8 @@
 # SpringBoot_UserManagement
+Erstellung einer Benutzerverwaltung in einer Webumgebung.
+Dabei wird ein View für die Anmeldung und Regisitrierung neuer Benutzer generiert.
+In der Benutzerverwaltung findet man eine Auflistung aller Benutzer und deren Eigenschaften.
 
-Kurze Beschreibung des Projekts und seines Zwecks.
 ## Inhaltsverzeichnis
 
 - [Installation](#installation)
