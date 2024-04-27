@@ -5,15 +5,20 @@ In der Benutzerverwaltung findet man eine Auflistung aller Benutzer und deren Ei
 
 ## Inhaltsverzeichnis
 
-- [Installation](#installation)
-- [Verwendung](#verwendung)
-- [Beispiel](#beispiel)
+- [Inhalte](#Inhalte)
+- [Hinweise](#Hinweise)
+- [Lastenheft](Lastenheft.doc)
 - [Contributing](#contributing)
-- [Lizenz](#lizenz)
 
-## Installation
+## Inhalte
+- Sign-Up
+- Sign-In
+- Gastzugang
+- Rollenvergabe -> Admin, User
+- Editieren von Benutzerdaten
 
-Beschreibung der Installationsschritte und der erforderlichen Abhängigkeiten.
+## Hinweise
 
-
-User Management modul for Spring Boot
+Diese Software ist nur ein Modul eines leichtgewichtigen Enterprise Portals.
+Es ist eigenständig und von den anderen Modulen, wie ToDo-Liste, Krankschreibung, etc. abgetrennt.
+Eine Implementierung in das Gesamtprojekt "Enterprise Portal" ist nicht angedacht.
