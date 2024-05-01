@@ -11,15 +11,20 @@ class LoginController {
 		return "dashboard";
 	}	
 	
-//	@GetMapping("/login")
-//	String login() {
-//		return "main";
-//	}
+	@GetMapping("/login")
+	String login() {
+		return "main";
+	}
 	
 	@GetMapping("/denied")
 	String denied() {
 		return "denied";
-	}	
+	}
+
+	@GetMapping("/logout")
+	String logout(){
+		return "logout";
+	}
 	
 	
 } // EoC

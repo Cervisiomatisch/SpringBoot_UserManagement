@@ -51,7 +51,7 @@ public class SecurityConfig {
     // Configuring HttpSecurity 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
-        return http
+/*        return http
         		.cors( cors -> cors.disable() )
         		.authorizeHttpRequests(authz -> authz
         				  .requestMatchers("/**").authenticated() 
@@ -71,7 +71,20 @@ public class SecurityConfig {
     	                .permitAll()
     	                .deleteCookies()
     	                )
-                .httpBasic(Customizer.withDefaults()).build();
+                .httpBasic(Customizer.withDefaults()).build();*/
+
+		http
+				.authorizeHttpRequests((requests) -> requests
+						.requestMatchers("/", "/index", "/logout").permitAll()
+						.anyRequest().authenticated()
+				)
+				.formLogin((form) -> form
+						.loginPage("/login")
+						.permitAll()
+				)
+				.logout((logout) -> logout.permitAll());
+
+		return http.build();
     }    
     
     // Password Encoding 

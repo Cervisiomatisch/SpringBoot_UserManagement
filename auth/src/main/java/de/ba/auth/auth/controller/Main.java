@@ -61,10 +61,5 @@ public class Main {
 		return "user";
 	}
 
-	@GetMapping( "/helloworld" )
-	public ResponseEntity<String> getOnlyString(
-			) {
-		return new ResponseEntity<String>("hello world", HttpStatus.OK);
-	}
 	
 } // EoC
