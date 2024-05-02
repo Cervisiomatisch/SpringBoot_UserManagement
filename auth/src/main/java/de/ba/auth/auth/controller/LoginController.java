@@ -8,12 +8,12 @@ class LoginController {
 	
 	@GetMapping("/")
 	String redirect_login() {
-		return "dashboard";
+		return "main";
 	}	
 	
 	@GetMapping("/login")
 	String login() {
-		return "main";
+		return "login";
 	}
 	
 	@GetMapping("/denied")

@@ -25,7 +25,8 @@ public class Main {
 	
 	@Autowired
 	MainManagement mainManagement;
-	
+	/*
+	For Documentation
 	@GetMapping( "/main" )
 	public String getMainView(
 			Model model,
@@ -40,6 +41,11 @@ public class Main {
 		model.addAttribute("title", "MySWP");
 		model.addAttribute("user", user);
 		
+		return "main";
+	}
+	*/
+	@GetMapping("/main")
+	public String getMain(){
 		return "main";
 	}
 
