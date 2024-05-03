@@ -82,7 +82,13 @@ public class SecurityConfig {
 						.loginPage("/login")
 						.permitAll()
 				)
-				.logout((logout) -> logout.permitAll());
+                .exceptionHandling( exceptionHandling -> exceptionHandling
+                        .accessDeniedPage( "/denied" )
+                )
+				.logout((logout) -> logout
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                        .deleteCookies());
 
 		return http.build();
     }    

@@ -10,4 +10,11 @@ public class DashboardController {
     public String getDashboard(){
         return "dashboard";
     }
+
+    @GetMapping("/dashboard/users")
+    public String getUsers(){
+
+        // get method to retrieve user data from database
+        return null;
+    }
 }

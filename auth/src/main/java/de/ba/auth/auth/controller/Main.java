@@ -25,27 +25,20 @@ public class Main {
 	
 	@Autowired
 	MainManagement mainManagement;
-	/*
-	For Documentation
+
 	@GetMapping( "/main" )
 	public String getMainView(
 			Model model,
 			Principal principal
 			) {
-		
+
 		User user = new User();
-		user.setUsername("meier");
-		
+
 		userRepo.save(user);
-		
+
 		model.addAttribute("title", "MySWP");
 		model.addAttribute("user", user);
-		
-		return "main";
-	}
-	*/
-	@GetMapping("/main")
-	public String getMain(){
+
 		return "main";
 	}
 
