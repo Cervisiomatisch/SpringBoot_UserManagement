@@ -8,18 +8,23 @@ class LoginController {
 	
 	@GetMapping("/")
 	String redirect_login() {
-		return "dashboard";
+		return "main";
 	}	
 	
-//	@GetMapping("/login")
-//	String login() {
-//		return "main";
-//	}
+	@GetMapping("/login")
+	String login() {
+		return "login";
+	}
 	
 	@GetMapping("/denied")
 	String denied() {
 		return "denied";
-	}	
+	}
+
+	@GetMapping("/logout")
+	String logout(){
+		return "logout";
+	}
 	
 	
 } // EoC
