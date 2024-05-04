@@ -1,9 +1,75 @@
-<mxfile host="app.diagrams.net" modified="2024-05-04T15:25:28.600Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0" version="24.3.1" etag="eP-_ZaWTkGEyH5_AQxV9" type="github">
+<mxfile host="app.diagrams.net" modified="2024-05-04T15:37:20.134Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0" etag="m-2mrIH3l2DtABN7QiRG" version="24.3.1" type="github">
   <diagram name="Seite-1" id="MPl-hTQaM5xvxjwQroyl">
-    <mxGraphModel>
+    <mxGraphModel dx="1123" dy="674" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-1" value="Create new user" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="100" width="490" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-7" value="&lt;div&gt;&lt;b&gt;create user&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;&amp;lt;Name, Vname, Passwort, Email, Rolle&amp;gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="cvChg6tX_c-UtgggaA5Y-1">
+          <mxGeometry x="20" y="50" width="196" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" edge="1" parent="cvChg6tX_c-UtgggaA5Y-1" source="cvChg6tX_c-UtgggaA5Y-9" target="cvChg6tX_c-UtgggaA5Y-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-14" value="&amp;lt;&amp;lt; includes &amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="cvChg6tX_c-UtgggaA5Y-13">
+          <mxGeometry x="-0.2816" y="-5" relative="1" as="geometry">
+            <mxPoint x="-30" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-9" value="&lt;div&gt;&lt;b&gt;fill/update user-data&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&amp;lt;Geburtstag, Abteilung, Tel.Nr, isActive&amp;gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="cvChg6tX_c-UtgggaA5Y-1">
+          <mxGeometry x="216" y="220" width="196" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="cvChg6tX_c-UtgggaA5Y-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="75" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-16" value="&amp;lt;&amp;lt; extends &amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="cvChg6tX_c-UtgggaA5Y-15">
+          <mxGeometry x="-0.2425" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="cvChg6tX_c-UtgggaA5Y-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-20" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&amp;lt;&amp;lt; gives information to &amp;gt;&amp;gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="cvChg6tX_c-UtgggaA5Y-19">
+          <mxGeometry x="0.2286" relative="1" as="geometry">
+            <mxPoint y="-31" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cvChg6tX_c-UtgggaA5Y-2" target="cvChg6tX_c-UtgggaA5Y-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="370" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-2" value="HR" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="330" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cvChg6tX_c-UtgggaA5Y-3" target="cvChg6tX_c-UtgggaA5Y-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-3" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="160" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-4" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="490" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="74.66" y="490" as="sourcePoint" />
+            <mxPoint x="74.66" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cvChg6tX_c-UtgggaA5Y-18" value="&amp;lt;&amp;lt; extends &amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="cvChg6tX_c-UtgggaA5Y-17">
+          <mxGeometry x="-0.2425" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
