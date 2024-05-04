@@ -9,6 +9,7 @@ In der Benutzerverwaltung findet man eine Auflistung aller Benutzer und deren Ei
 - [Inhalte](#Inhalte)
 - [Hinweise](#Hinweise)
 - [Lastenheft](Lastenheft.doc)
+- [Diagramme](#Diagramme)
 - [Help](auth/HELP.md)
 
 ## Inhalte
@@ -17,6 +18,13 @@ In der Benutzerverwaltung findet man eine Auflistung aller Benutzer und deren Ei
 - User-Daten pflegen/aktualisieren, editieren -> Admin, HR
 - User aktivieren/deaktivieren
 - user löschen (ausblenden)
+
+
+## Diagramme
+- [Sequenzdiagramm](auth/HELP.md)
+- [Help](auth/HELP.md)
+- [Help](auth/HELP.md)
+
 
 ## Hinweise
 
