@@ -21,7 +21,7 @@ In der Benutzerverwaltung findet man eine Auflistung aller Benutzer und deren Ei
 
 
 ## Diagramme
-- [Use-Case-Diagramm](Diagramme/Overview.uxf) -> neue User erstellen
+- [Use-Case-Diagramm](Diagramme/UseCase-Diagramm.drawio) -> neue User erstellen
 - [Sequenzdiagramm](Diagramme/Sequenzdiagramm.drawio)
 - [User-Fluss-Diagramm](Diagramme/Userflowchart)
 
