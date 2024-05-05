@@ -12,7 +12,7 @@ public class LogoutController {
 
 	SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	
-	@GetMapping("/app/logout")
+	@GetMapping("/logout")
 	public String performLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
 	    this.logoutHandler.logout(request, response, authentication);
 	    return "logout";

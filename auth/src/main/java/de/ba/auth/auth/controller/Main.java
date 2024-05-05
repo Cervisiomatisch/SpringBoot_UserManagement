@@ -13,34 +13,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import de.ba.auth.auth.controller.svc.MainManagement;
-import de.ba.auth.auth.model.User;
-import de.ba.auth.auth.repo.UserRepo;
+import de.ba.auth.auth.model.UserEntity;
 
 
 @Controller
 public class Main {
 	
 	@Autowired
-	private UserRepo userRepo;
-	
-	@Autowired
 	MainManagement mainManagement;
 
-	@GetMapping( "/main" )
+	@GetMapping( "/" )
 	public String getMainView(
 			Model model,
 			Principal principal
 			) {
 
-		User user = new User();
-
-		userRepo.save(user);
-
-		model.addAttribute("title", "MySWP");
-		model.addAttribute("user", user);
-
 		return "main";
 	}
+
+
 
 	@PostMapping( "/manageApp" )
 	public ResponseEntity<JSONObject> manageApp(
@@ -52,12 +43,6 @@ public class Main {
 				new HttpHeaders(),
 				HttpStatus.OK
 				);
-	}
-	
-	@GetMapping( "/user" )
-	public String getUserView(
-			) {
-		return "user";
 	}
 
 	

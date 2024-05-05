@@ -4,17 +4,17 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import de.ba.auth.auth.lib.JsonReader;
-import de.ba.auth.auth.model.User;
+import de.ba.auth.auth.model.UserEntity;
 
 
 @Service
 public class MainManagement {
 	
 	@Autowired
-	public User getUsername() {
+	public UserEntity getUsername() {
 		
-		User user = new User();
-		user.setUsername("meier");
+		UserEntity user = new UserEntity();
+
 		
 		//userRepo.save(user);
 		return user;

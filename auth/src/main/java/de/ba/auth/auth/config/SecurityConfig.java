@@ -1,14 +1,22 @@
 package de.ba.auth.auth.config;
 
+import de.ba.auth.auth.security.CustomUserDetailsService;
+import lombok.Getter;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,86 +25,80 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
+
+    private CustomUserDetailsService userDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
+    @Autowired
+    public SecurityConfig(CustomUserDetailsService userDetailsService){
+        this.userDetailsService = userDetailsService;
+    }
 
 	@Bean
 	AuthenticationEventPublisher authenticationEventPublisher
 	        (ApplicationEventPublisher applicationEventPublisher) {
 	    return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
 	}
-	
-    // User Creation 
+
+
+    // Configuring HttpSecurity
     @Bean
-    UserDetailsService userDetailsService(PasswordEncoder encoder) { 
-  
-        UserDetails user1 = User.withUsername("user1")
-                .password(passwordEncoder().encode("pass"))
-                .roles("USER")
-                .build();
-            UserDetails user2 = User.withUsername("user2")
-                .password(passwordEncoder().encode("pass"))
-                .roles("USER")
-                .build();
-            UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder().encode("pass"))
-                .roles("ADMIN")
-                .build();
-            return new InMemoryUserDetailsManager(user1, user2, admin);
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        logger.debug("Configuring security filter chain");
+        http
+                .csrf().disable()
+                .cors().disable()
+                .authorizeHttpRequests(auth ->
+                        auth
+                                .requestMatchers("/login", "/register").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .formLogin(form ->
+                        form
+                                .loginPage("/login")
+                                .permitAll()
+                                .defaultSuccessUrl("/dashboard", true)
+                )
+                .logout(logout ->
+                        logout
+                                .logoutUrl("/logout")
+                                .invalidateHttpSession(true)
+                                .permitAll()
+                );
+
+        http.userDetailsService(userDetailsService);
+
+        return http.build();
     }
 
-    // Configuring HttpSecurity 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
-/*        return http
-        		.cors( cors -> cors.disable() )
-        		.authorizeHttpRequests(authz -> authz
-        				  .requestMatchers("/**").authenticated() 
-        				  .requestMatchers("/app/logout").permitAll()
-        				  .anyRequest().authenticated()
-        				  )
-        		.formLogin(form -> form
-//        				.loginPage("/login")
-        				.permitAll()
-        			)
-    	    	.exceptionHandling( exceptionHandling -> exceptionHandling
-    	    			.accessDeniedPage( "/denied" )
-    	    			)
-    	    	.logout( (logout) -> logout
-    	                .logoutSuccessUrl( "/app/logout" )
-    	                .invalidateHttpSession(true)
-    	                .permitAll()
-    	                .deleteCookies()
-    	                )
-                .httpBasic(Customizer.withDefaults()).build();*/
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-		http
-				.authorizeHttpRequests((requests) -> requests
-						.requestMatchers("/", "/index", "/logout").permitAll()
-						.anyRequest().authenticated()
-				)
-				.formLogin((form) -> form
-						.loginPage("/login")
-						.permitAll()
-				)
-                .exceptionHandling( exceptionHandling -> exceptionHandling
-                        .accessDeniedPage( "/denied" )
-                )
-				.logout((logout) -> logout
-                        .invalidateHttpSession(true)
-                        .permitAll()
-                        .deleteCookies());
+/*    @Bean
+    public UserDetailsService users(){
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password("admin")
+                .roles("ADMIN")
+                .build();
 
-		return http.build();
-    }    
-    
-    // Password Encoding 
+        return new InMemoryUserDetailsManager(admin);
+    }*/
+
     @Bean
-    PasswordEncoder passwordEncoder() { 
-        return new BCryptPasswordEncoder(); 
-    } 
-  
-} 
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+}
