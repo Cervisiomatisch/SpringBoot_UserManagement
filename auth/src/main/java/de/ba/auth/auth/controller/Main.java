@@ -31,6 +31,11 @@ public class Main {
 		return "main";
 	}
 
+	@GetMapping("/main")
+	public String getMain(){
+		return "main";
+	}
+
 
 
 	@PostMapping( "/manageApp" )
