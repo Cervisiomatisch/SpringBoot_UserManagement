@@ -19,10 +19,19 @@ public class InitialUserSetup implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (userRepository.findByUsername("admin") == null) {
+        if (userRepository.existsByUsername("admin") == false) {
             UserEntity user = new UserEntity();
             user.setUsername("admin");
-            user.setPassword(passwordEncoder.encode("password"));
+            user.setPassword(passwordEncoder.encode("pass"));
+            // Set other user properties
+            userRepository.save(user);
+        }
+
+        if (userRepository.existsByUsername("user") == false) {
+            System.out.println("No user was found");
+            UserEntity user = new UserEntity();
+            user.setUsername("user");
+            user.setPassword(passwordEncoder.encode("pass"));
             // Set other user properties
             userRepository.save(user);
         }
