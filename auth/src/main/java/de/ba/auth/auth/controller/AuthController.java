@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -55,22 +56,26 @@ class AuthController {
 				.build();
 	}
 
-	@PostMapping("register")
-	public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+
+	@PostMapping(value = "/register")
+	public ResponseEntity<Void> register( RegisterDto registerDto) {
 		if (userRepository.existsByUsername(registerDto.getUsername())) {
-			return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 
 		UserEntity user = new UserEntity();
 		user.setUsername(registerDto.getUsername());
 		user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
-		Role roles = roleRepository.findByName("USER").get();
-		user.setRoles(Collections.singletonList(roles));
+		//Role roles = roleRepository.findByName("USER").get();
+		//user.setRoles(Collections.singletonList(roles));
 
+		System.out.println(user);
 		userRepository.save(user);
 
-		return new ResponseEntity<>("User registered success!", HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK)
+				.header(HttpHeaders.LOCATION, "/login")
+				.build();
 	}
 	
 	
