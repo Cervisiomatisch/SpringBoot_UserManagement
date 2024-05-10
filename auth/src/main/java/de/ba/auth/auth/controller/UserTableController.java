@@ -16,10 +16,11 @@ public class UserTableController {
 
     @GetMapping
     public List<UserEntity> getUserData() {
-        List<UserEntity> data = userService.getAllUsers();
-        return data;
+        return userService.getAllUsers();
+    }
 
+    @GetMapping("/{id}")
+    public UserEntity getUserById(@PathVariable Integer id) {
+        return userService.getUserById(id);
     }
 }
-
-

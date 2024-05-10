@@ -8,18 +8,21 @@ import java.util.List;
 @Service
 public class UserService {
 
-    // Hier könntest du eine Datenquelle einbinden, z.B. ein UserRepository, um Benutzer aus einer Datenbank abzurufen
-
-    // Beispiel: Annahme, dass der UserRepository existiert und Benutzer aus einer Datenbank abruft
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    // Beispiel: Annahme, dass der UserRepository eine Methode findAll() hat, um alle Benutzer abzurufen
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
+    }
+    public UserEntity getUserById(Integer id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Benutzer nicht gefunden für ID: " + id));
+    }
+    public void saveUser(UserEntity user) {
+        userRepository.save(user);
     }
 }
 
