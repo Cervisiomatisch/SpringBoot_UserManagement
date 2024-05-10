@@ -1,23 +1,25 @@
 package de.ba.auth.auth.controller;
 
+import de.ba.auth.auth.controller.Services.UserService;
 import de.ba.auth.auth.model.UserEntity;
-import de.ba.auth.auth.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
+@RequestMapping("/tableusers")
 public class UserTableController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping("/tableuser")
+    @GetMapping
     public List<UserEntity> getUserData() {
-        List<UserEntity> data = userRepository.findAll();
-        System.out.println(data);
+        List<UserEntity> data = userService.getAllUsers();
         return data;
+
     }
 }
+
 
