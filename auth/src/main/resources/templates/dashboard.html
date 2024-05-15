@@ -192,6 +192,22 @@
         });
     }
 
+    function deleteUser(id) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            $.ajax({
+                url: '/tableusers/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    // Remove the user from the table
+                    $('#userTable').DataTable().row($('#userTable').find('tr[data-id="' + id + '"]')).remove().draw();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Fehler beim Löschen des Benutzers:", error);
+                }
+            });
+        }
+    }
+
     $(document).ready(function () {
         $('#userForm').submit(function (event) {
             event.preventDefault();
@@ -216,12 +232,11 @@
                 contentType: 'application/json',
                 data: JSON.stringify(userData),
                 success: function (response) {
-
                     $('#userModal').modal('hide');
+                    location.reload(); // Reload the page to reflect changes
                 },
                 error: function (xhr, status, error) {
                     console.error("Fehler beim Speichern der Benutzerdaten:", error);
-
                 }
             });
         });
@@ -234,11 +249,12 @@
                 $.each(data, function (index, user) {
                     var editButton = '<button class="btn btn-primary" onclick="editUser(' + user.id + ')" data-toggle="modal" data-target="#userModal">Edit</button>';
                     var deleteButton = '<button class="btn btn-danger" onclick="deleteUser(' + user.id + ')">Delete</button>';
-                    table.row.add([user.id, user.username, user.department, editButton + deleteButton]).draw();
+                    var row = table.row.add([user.id, user.username, user.department, editButton + ' ' + deleteButton]).draw().node();
+                    $(row).attr('data-id', user.id);
                 });
             },
             error: function (xhr, status, error) {
-                console.error(error);
+                console.error("Fehler beim Laden der Benutzerdaten:", error);
             }
         });
     });
