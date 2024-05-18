@@ -38,6 +38,9 @@ public class SecurityConfig {
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+    @Autowired
     public SecurityConfig(CustomUserDetailsService userDetailsService){
         this.userDetailsService = userDetailsService;
     }
@@ -53,26 +56,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        logger.debug("Configuring security filter chain");
         http
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/login", "/register").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/register").permitAll()
-                                .requestMatchers(HttpMethod.POST).permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/user/**").hasRole("USER")
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form ->
                         form
-                                .loginPage("/login")
+                                .loginPage("/api/auth/login")
                                 .permitAll()
-                                .defaultSuccessUrl("/dashboard", true)
+                                .successHandler(customAuthenticationSuccessHandler)
+                                .failureUrl("/api/auth/login?error=true")
                 )
                 .logout(logout ->
                         logout
-                                .logoutUrl("/logout")
+                                .logoutUrl("/api/auth/logout")
                                 .invalidateHttpSession(true)
                                 .permitAll()
                 );

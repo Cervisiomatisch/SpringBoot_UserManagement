@@ -45,9 +45,7 @@
                     Your Profile
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" th:href="@{dashboard}">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" th:href="@{logout}">Logout</a>
+                    <a class="dropdown-item" th:href="@{/api/auth/logout}">Logout</a>
                 </div>
             </li>
         </ul>
@@ -168,7 +166,7 @@
     // TODO bei add User leeres Modal anzeigen anstatt den User den man vorhin hatte
     function editUser(id) {
         $.ajax({
-            url: '/tableusers/' + id,
+            url: '/api/admin/tableusers/' + id,
             type: 'GET',
             success: function (userData) {
 
@@ -211,7 +209,7 @@
             };
 
             $.ajax({
-                url: '/saveuser',
+                url: '/api/admin/saveuser',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(userData),
@@ -227,7 +225,7 @@
         });
 
         $.ajax({
-            url: '/tableusers',
+            url: '/api/admin/tableusers',
             type: 'GET',
             success: function (data) {
                 var table = $('#userTable').DataTable();

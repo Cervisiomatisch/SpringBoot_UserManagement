@@ -1,12 +1,15 @@
 package de.ba.auth.auth.config;
 
 import de.ba.auth.auth.model.Role;
+import de.ba.auth.auth.model.RoleName;
 import de.ba.auth.auth.model.UserEntity;
 import de.ba.auth.auth.repo.RoleRepository;
 import de.ba.auth.auth.repo.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 @Component
 public class InitialUserSetup implements CommandLineRunner {
@@ -23,12 +26,35 @@ public class InitialUserSetup implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
+/*
+        if (!roleRepository.existsByName("ROLE_USER")) {
+            System.out.println("No user role was found");
+            Role role = new Role();
+            role.setName(RoleName.ROLE_USER);
+            // Set other user properties
+            roleRepository.save(role);
+        }
+
+        if (!roleRepository.existsByName("ROLE_ADMIN")) {
+            System.out.println("No ADMIN role was found");
+            Role role = new Role();
+            role.setName(RoleName.ROLE_ADMIN);
+            // Set other user properties
+            roleRepository.save(role);
+        }
+*/
+
+
         if (!userRepository.existsByUsername("admin")) {
             System.out.println("No admin was found");
 
             UserEntity user = new UserEntity();
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("pass"));
+
+            user.setRoles(Collections.singleton(roleRepository.findByName(RoleName.ROLE_ADMIN)
+                    .orElseThrow(() -> new RuntimeException("No admin role was found"))));
             // Set other user properties
             userRepository.save(user);
         }
@@ -38,32 +64,13 @@ public class InitialUserSetup implements CommandLineRunner {
             UserEntity user = new UserEntity();
             user.setUsername("user");
             user.setPassword(passwordEncoder.encode("pass"));
+
+
+
+            user.setRoles(Collections.singleton(roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("No user role was found"))));
             // Set other user properties
             userRepository.save(user);
-        }
-
-        if (!roleRepository.existsByName("USER")) {
-            System.out.println("No user role was found");
-            Role role = new Role();
-            role.setName("USER");
-            // Set other user properties
-            roleRepository.save(role);
-        }
-
-        if (!roleRepository.existsByName("ADMIN")) {
-            System.out.println("No ADMIN role was found");
-            Role role = new Role();
-            role.setName("ADMIN");
-            // Set other user properties
-            roleRepository.save(role);
-        }
-
-        if (!roleRepository.existsByName("HR")) {
-            System.out.println("No HR role was found");
-            Role role = new Role();
-            role.setName("HR");
-            // Set other user properties
-            roleRepository.save(role);
         }
 
 

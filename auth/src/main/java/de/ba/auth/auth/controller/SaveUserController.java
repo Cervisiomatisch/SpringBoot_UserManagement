@@ -3,10 +3,11 @@ package de.ba.auth.auth.controller;
 import de.ba.auth.auth.controller.Services.UserService;
 import de.ba.auth.auth.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/saveuser")
+@RequestMapping("/api/admin/saveuser")
 public class SaveUserController {
 
     @Autowired

@@ -3,6 +3,7 @@ package de.ba.auth.auth.controller;
 import de.ba.auth.auth.dto.LoginDto;
 import de.ba.auth.auth.dto.RegisterDto;
 import de.ba.auth.auth.model.Role;
+import de.ba.auth.auth.model.RoleName;
 import de.ba.auth.auth.model.UserEntity;
 import de.ba.auth.auth.repo.RoleRepository;
 import de.ba.auth.auth.repo.UserRepository;
@@ -47,12 +48,9 @@ class AuthController {
 				)
 		);
 
-
-
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		return ResponseEntity.status(HttpStatus.FOUND)
-				.header(HttpHeaders.LOCATION, "/")
 				.build();
 	}
 
@@ -67,14 +65,15 @@ class AuthController {
 		user.setUsername(registerDto.getUsername());
 		user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
-		//Role roles = roleRepository.findByName("USER").get();
-		//user.setRoles(Collections.singletonList(roles));
+		Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+				.orElseThrow(() -> new RuntimeException("User Role not set."));
+		user.setRoles(Collections.singleton(userRole));
 
 		System.out.println(user);
 		userRepository.save(user);
 
 		return ResponseEntity.status(HttpStatus.OK)
-				.header(HttpHeaders.LOCATION, "/login")
+				.header(HttpHeaders.LOCATION, "/api/auth/login")
 				.build();
 	}
 	
