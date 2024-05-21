@@ -27,8 +27,7 @@ public class InitialUserSetup implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-/*
-        if (!roleRepository.existsByName("ROLE_USER")) {
+        if (!roleRepository.existsByName(RoleName.ROLE_USER)) {
             System.out.println("No user role was found");
             Role role = new Role();
             role.setName(RoleName.ROLE_USER);
@@ -36,14 +35,13 @@ public class InitialUserSetup implements CommandLineRunner {
             roleRepository.save(role);
         }
 
-        if (!roleRepository.existsByName("ROLE_ADMIN")) {
+        if (!roleRepository.existsByName(RoleName.ROLE_ADMIN)) {
             System.out.println("No ADMIN role was found");
             Role role = new Role();
             role.setName(RoleName.ROLE_ADMIN);
             // Set other user properties
             roleRepository.save(role);
         }
-*/
 
 
         if (!userRepository.existsByUsername("admin")) {
