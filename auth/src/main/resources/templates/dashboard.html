@@ -163,6 +163,8 @@
 <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
+
+
     // TODO bei add User leeres Modal anzeigen anstatt den User den man vorhin hatte
     function editUser(id) {
         $.ajax({
@@ -207,7 +209,17 @@
     }
 
     $(document).ready(function () {
+
+
+
         $('#userForm').submit(function (event) {
+
+            var selectedRole = $('#role').val();
+            console.log(selectedRole)
+            if (selectedRole === "Choose...") {
+                alert('Please select a role.');
+                return;
+            }
             event.preventDefault();
 
             var userData = {
@@ -220,11 +232,9 @@
                 birthday: $('#birthday').val(),
                 department: $('#department').val(),
                 password: $('#password').val(),
-                role: $('#role').val(),
+                roles:  selectedRole,
                 isActive: $('#isActive').is(':checked')
             };
-
-            console.log(userData)
 
             $.ajax({
                 url: '/api/admin/saveuser',

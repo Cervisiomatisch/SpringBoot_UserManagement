@@ -27,6 +27,8 @@ public class InitialUserSetup implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+
+
         if (!roleRepository.existsByName(RoleName.ROLE_USER)) {
             System.out.println("No user role was found");
             Role role = new Role();
