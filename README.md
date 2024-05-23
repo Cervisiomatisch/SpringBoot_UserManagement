@@ -8,7 +8,7 @@ In der Benutzerverwaltung findet man eine Auflistung aller Benutzer und deren Ei
 
 - [Inhalte](#Inhalte)
 - [Hinweise](#Hinweise)
-- [Lastenheft](Lastenheft.doc)
+- [Lastenheft](LastenheftV1.pdf)
 - [Diagramme](#Diagramme)
 - [Help](auth/HELP.md)
 
