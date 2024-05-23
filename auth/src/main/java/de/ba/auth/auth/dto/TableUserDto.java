@@ -1,13 +1,13 @@
-package de.ba.auth.auth.model;
+package de.ba.auth.auth.dto;
 
-import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Setter
 @Getter
-public class CreateUserDto {
-
+public class TableUserDto {
     private int id;
 
     private String username;
@@ -27,5 +27,4 @@ public class CreateUserDto {
     private Boolean isActive;
 
     private String roles;
-
 }

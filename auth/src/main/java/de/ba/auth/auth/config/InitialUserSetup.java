@@ -53,8 +53,7 @@ public class InitialUserSetup implements CommandLineRunner {
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("pass"));
 
-            user.setRoles(Collections.singleton(roleRepository.findByName(RoleName.ROLE_ADMIN)
-                    .orElseThrow(() -> new RuntimeException("No admin role was found"))));
+            user.setRoles(Collections.singleton(roleRepository.findByName(RoleName.ROLE_ADMIN)));
             // Set other user properties
             userRepository.save(user);
         }
@@ -67,8 +66,7 @@ public class InitialUserSetup implements CommandLineRunner {
 
 
 
-            user.setRoles(Collections.singleton(roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("No user role was found"))));
+            user.setRoles(Collections.singleton(roleRepository.findByName(RoleName.ROLE_USER)));
             // Set other user properties
             userRepository.save(user);
         }

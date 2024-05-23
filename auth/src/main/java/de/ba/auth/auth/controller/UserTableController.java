@@ -1,6 +1,7 @@
 package de.ba.auth.auth.controller;
 
 import de.ba.auth.auth.controller.Services.UserService;
+import de.ba.auth.auth.dto.TableUserDto;
 import de.ba.auth.auth.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +17,12 @@ public class UserTableController {
     private UserService userService;
 
     @GetMapping
-    public List<UserEntity> getUserData() {
+    public List<TableUserDto> getUserData() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public UserEntity getUserById(@PathVariable Integer id) {
+    public TableUserDto getUserById(@PathVariable Integer id) {
         return userService.getUserById(id);
     }
 

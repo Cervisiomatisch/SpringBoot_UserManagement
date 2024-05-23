@@ -65,8 +65,7 @@ class AuthController {
 		user.setUsername(registerDto.getUsername());
 		user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
-		Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-				.orElseThrow(() -> new RuntimeException("User Role not set."));
+		Role userRole = roleRepository.findByName(RoleName.ROLE_USER);
 		user.setRoles(Collections.singleton(userRole));
 
 		System.out.println(user);

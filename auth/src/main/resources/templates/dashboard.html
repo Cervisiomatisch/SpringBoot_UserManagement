@@ -69,7 +69,7 @@
         </tbody>
     </table>
     <!-- Modal for editing user -->
-    <div class="modal fade" id="edituserModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form for adding/editing user -->
-                    <form id="edituserForm">
+                    <form id="updateUserForm">
                         <input type="hidden" id="edituserId">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -152,7 +152,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form for adding/editing user -->
-                    <form id="userForm">
+                    <form id="createUserForm">
                         <input type="hidden" id="userId">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -218,7 +218,7 @@
     </div>
     <!-- Button to open modal for adding/editing user -->
     <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#adduserModal">
-        Add User
+        Create user
     </button>
 
 </div>
@@ -252,10 +252,10 @@
                 $('#editphoneNumber').val(userData.phoneNumber);
                 $('#editbirthday').val(userData.birthday);
                 $('#editdepartment').val(userData.department);
-                $('#editrole').val(userData.role);
+                $('#editrole').val(userData.roles);
                 $('#editisActive').prop('checked', userData.isActive);
 
-                $('#edituserModal').modal('show');
+                $('#updateUserModal').modal('show');
             },
             error: function (xhr, status, error) {
                 console.error("Fehler beim Laden der Benutzerdaten:", error);
@@ -279,11 +279,12 @@
         }
     }
 
+    // create user
     $(document).ready(function () {
 
-        $('#userForm').submit(function (event) {
+        $('#createUserForm').submit(function (event) {
 
-            var selectedRole = $('#role').val();
+            let selectedRole = $('#role').val();
             console.log(selectedRole)
             if (selectedRole === "Choose...") {
                 alert('Please select a role.');
@@ -291,7 +292,7 @@
             }
             event.preventDefault();
 
-            var userData = {
+            let userData = {
                 id: $('#userId').val(),
                 username: $('#username').val(),
                 firstName: $('#firstName').val(),
@@ -301,12 +302,12 @@
                 birthday: $('#birthday').val(),
                 department: $('#department').val(),
                 password: $('#password').val(),
-                roles:  selectedRole,
+                roles: selectedRole,
                 isActive: $('#isActive').is(':checked')
             };
 
             $.ajax({
-                url: '/api/admin/saveuser',
+                url: '/api/admin/createuser',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(userData),
@@ -319,24 +320,67 @@
                 }
             });
         });
+    })
+
+
+    //update user
+    $(document).ready(function () {
+
+        $('#updateUserForm').submit(function (event) {
+
+            let selectedRole = $('#editrole').val();
+
+            event.preventDefault();
+
+            let userData = {
+                id: $('#edituserId').val(),
+                username: $('#editusername').val(),
+                firstName: $('#editfirstName').val(),
+                lastName: $('#editlastName').val(),
+                email: $('#editemail').val(),
+                phoneNumber: $('#editphoneNumber').val(),
+                birthday: $('#editbirthday').val(),
+                department: $('#editdepartment').val(),
+                roles:  selectedRole,
+                isActive: $('#editisActive').is(':checked')
+            };
+
+            $.ajax({
+                url: '/api/admin/updateuser',
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(userData),
+                success: function (response) {
+                    $('#updateUserModal').modal('hide');
+                    location.reload(); // Reload the page to reflect changes
+                },
+                error: function (xhr, status, error) {
+                    console.error("Fehler beim Speichern der Benutzerdaten:", error);
+                }
+            });
+        });
 
         $.ajax({
             url: '/api/admin/tableusers',
             type: 'GET',
             success: function (data) {
-                var table = $('#userTable').DataTable();
+                const table = $('#userTable').DataTable();
                 $.each(data, function (index, user) {
+                    console.log(user)
                     var editButton = '<button class="btn btn-primary" onclick="editUser(' + user.id + ')" data-toggle="modal" data-target="#userModal">Edit</button>';
                     var deleteButton = '<button class="btn btn-danger" onclick="deleteUser(' + user.id + ')">Delete</button>';
-                    var row = table.row.add([user.id, user.username, user.department, editButton + ' ' + deleteButton]).draw().node();
+
+                    let actionDiv = '<div style="display: flex; gap: 20px; justify-content: flex-end;"> <button class="btn btn-primary" onclick="editUser(' + user.id + ')" data-toggle="modal" data-target="#userModal">Edit</button>  <button class="btn btn-danger" onclick="deleteUser(' + user.id + ')">Delete</button> </div>'
+                    var row = table.row.add([user.id, user.username, user.department, actionDiv]).draw().node();
                     $(row).attr('data-id', user.id);
+
                 });
             },
             error: function (xhr, status, error) {
                 console.error("Fehler beim Laden der Benutzerdaten:", error);
             }
         });
-    });
+    })
 
 </script>
 
