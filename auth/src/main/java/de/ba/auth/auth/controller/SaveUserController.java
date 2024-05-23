@@ -35,6 +35,10 @@ public class SaveUserController {
         newUser.setPassword(user.getPassword());
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
+        newUser.setActive(user.getIsActive());
+        newUser.setBirthday(user.getBirthday());
+        newUser.setDepartment(user.getDepartment());
+        newUser.setPhoneNumber(user.getPhoneNumber());
         newUser.setRoles(Collections.singleton(roleRepository.findByName(RoleName.valueOf(user.getRoles()))
                 .orElseThrow(() -> new RuntimeException("No admin role was found"))));
 
