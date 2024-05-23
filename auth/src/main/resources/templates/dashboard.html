@@ -68,12 +68,84 @@
         <!-- Benutzerdaten werden hier eingefügt -->
         </tbody>
     </table>
-    <!-- Modal for adding/editing user -->
-    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <!-- Modal for editing user -->
+    <div class="modal fade" id="edituserModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userModalLabel">Add/Edit User</h5>
+                    <h5 class="modal-title" id="edituserModalLabel">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding/editing user -->
+                    <form id="edituserForm">
+                        <input type="hidden" id="edituserId">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="editusername" name="username">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="editfirstName" name="firstName">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="editlastName" name="lastName">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="editemail" name="email">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="tel" class="form-control" id="editphoneNumber" name="phoneNumber">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="birthday">Birthday</label>
+                                <input type="date" class="form-control" id="editbirthday" name="birthday">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="department">Department</label>
+                                <input type="text" class="form-control" id="editdepartment" name="department">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="role">Role</label>
+                                <select id="editrole" class="form-control" name="role">
+                                    <option selected>Choose...</option>
+                                    <option value="ROLE_ADMIN">Admin</option>
+                                    <option value="ROLE_USER">User</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="editisActive" name="isActive">
+                                <label class="form-check-label" for="isActive">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for adding user -->
+    <div class="modal fade" id="adduserModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">Add User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -145,7 +217,7 @@
         </div>
     </div>
     <!-- Button to open modal for adding/editing user -->
-    <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#userModal">
+    <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#adduserModal">
         Add User
     </button>
 
@@ -172,19 +244,18 @@
             type: 'GET',
             success: function (userData) {
 
-                $('#userId').val(userData.id);
-                $('#username').val(userData.username);
-                $('#firstName').val(userData.firstName);
-                $('#lastName').val(userData.lastName);
-                $('#email').val(userData.email);
-                $('#phoneNumber').val(userData.phoneNumber);
-                $('#birthday').val(userData.birthday);
-                $('#department').val(userData.department);
-                $('#password').val("");
-                $('#role').val(userData.role);
-                $('#isActive').prop('checked', userData.isActive);
+                $('#edituserId').val(userData.id);
+                $('#editusername').val(userData.username);
+                $('#editfirstName').val(userData.firstName);
+                $('#editlastName').val(userData.lastName);
+                $('#editemail').val(userData.email);
+                $('#editphoneNumber').val(userData.phoneNumber);
+                $('#editbirthday').val(userData.birthday);
+                $('#editdepartment').val(userData.department);
+                $('#editrole').val(userData.role);
+                $('#editisActive').prop('checked', userData.isActive);
 
-                $('#userModal').modal('show');
+                $('#edituserModal').modal('show');
             },
             error: function (xhr, status, error) {
                 console.error("Fehler beim Laden der Benutzerdaten:", error);
@@ -209,8 +280,6 @@
     }
 
     $(document).ready(function () {
-
-
 
         $('#userForm').submit(function (event) {
 
@@ -242,7 +311,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(userData),
                 success: function (response) {
-                    $('#userModal').modal('hide');
+                    $('#adduserModal').modal('hide');
                     location.reload(); // Reload the page to reflect changes
                 },
                 error: function (xhr, status, error) {
